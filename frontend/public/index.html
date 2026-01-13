@@ -21,9 +21,9 @@
     </div>
 
     <script>
-      // Minimal widget without build tools. Configure BACKEND_URL if needed.
       const BACKEND = (window.BACKEND_URL || 'http://localhost:3000');
       let conversationId = null;
+      const POLL_INTERVAL_MS = 2000;
 
       const messagesEl = document.getElementById('messages');
       const input = document.getElementById('input');
@@ -44,8 +44,19 @@
         });
         const json = await res.json();
         conversationId = json.conversationId;
-        // For demo we show the stored message as an echo from support
-        setTimeout(() => appendMsg('Support (simulated)', 'Thanks — we received: "' + text + '"'), 600);
+      }
+
+      async function poll() {
+        if (!conversationId) return;
+        try {
+          const res = await fetch(`${BACKEND}/api/conversations/${conversationId}`);
+          if (!res.ok) return;
+          const json = await res.json();
+          messagesEl.innerHTML = '';
+          (json.messages || []).forEach(m => appendMsg(m.from, m.text));
+        } catch (err) {
+          console.warn('poll error', err);
+        }
       }
 
       sendBtn.addEventListener('click', () => {
@@ -53,6 +64,7 @@
       });
       input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendBtn.click(); });
 
+      setInterval(poll, POLL_INTERVAL_MS);
     </script>
   </body>
 </html>

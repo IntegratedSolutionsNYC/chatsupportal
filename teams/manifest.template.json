@@ -1,0 +1,18 @@
+{
+  "manifestVersion": "1.11",
+  "version": "1.0.0",
+  "id": "ENTER-YOUR-GUID-HERE",
+  "packageName": "com.integratedsolutions.chatsupportal",
+  "developer": {
+    "name": "IntegratedSolutionsNYC",
+    "websiteUrl": "https://integratedsolutions.nyc",
+    "privacyUrl": "https://integratedsolutions.nyc/privacy",
+    "termsOfUseUrl": "https://integratedsolutions.nyc/terms"
+  },
+  "name": { "short": "ChatSupportal", "full": "ChatSupportal - Chats Up Portal" },
+  "description": { "short": "Connect web chat to Teams threads", "full": "A Teams-integrated chat portal that synchronizes website chat with Teams threads for support staff and AI agents." },
+  "icons": { "outline": "outline.png", "color": "color.png" },
+  "bots": [ { "botId": "<BOT_APP_ID>", "scopes": [ "team", "personal" ], "supportsFiles": false, "isNotificationOnly": false } ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": []
+}
